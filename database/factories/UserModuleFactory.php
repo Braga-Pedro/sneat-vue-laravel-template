@@ -17,7 +17,11 @@ class UserModuleFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => \App\Models\User::factory(),
+            'company_id' => $firstCompany->id,
+            'uuid' => $this->faker->uuid,
+            'admin' => $this->faker->boolean(30),
+            'operator'=> $this->faker->boolean(60),
         ];
     }
 }

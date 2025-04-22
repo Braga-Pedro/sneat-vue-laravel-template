@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_modules', function (Blueprint $table) {
             $table->id();
-            $table->boolean('reader')->default(false);
+            $table->boolean('operator')->default(false);
             $table->boolean('admin')->default(false);
 
             $table->uuid('user_id');
