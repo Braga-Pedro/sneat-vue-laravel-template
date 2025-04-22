@@ -4,9 +4,8 @@ services:
     image: 'postgres:17'
     container_name: pgsql
     restart: always
-    # restart: unless-stopped
     ports:
-      - '${FORWARD_DB_PORT:-5432}:5432'
+      - '${FORWARD_DB_PORT:-5433}:5432'
     environment:
       PGPASSWORD: '${DB_PASSWORD:-secret}'
       POSTGRES_DB: '${DB_DATABASE:-db_sneat}'
