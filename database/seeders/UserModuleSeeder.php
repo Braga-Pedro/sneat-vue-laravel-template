@@ -7,11 +7,8 @@ use Illuminate\Database\Seeder;
 
 class UserModuleSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        //
+        \App\Models\UserModule::factory(16)->create();               
     }
 }

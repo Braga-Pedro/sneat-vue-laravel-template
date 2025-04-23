@@ -12,16 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_modules', function (Blueprint $table) {
+            // $table->uuid('id')->primary();
             $table->id();
             $table->boolean('operator')->default(false);
             $table->boolean('admin')->default(false);
 
-            $table->uuid('user_id');
+            $table->integer('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-
-            $table->uuid('uuid');
-
-            $table->unique(['user_id', 'company_id']);
             
             $table->softDeletes(); 
             $table->timestamps();
