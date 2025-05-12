@@ -1,6 +1,6 @@
 import { ofetch } from 'ofetch'
 
-export const api = ofetch.create({
+export const $api = ofetch.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
   credentials: 'include',
   async onRequest({ options }) {
