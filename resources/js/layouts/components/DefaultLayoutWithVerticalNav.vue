@@ -1,10 +1,17 @@
 <script setup>
-import NavItems from '@/layouts/components/NavItems.vue'
-import logo from '@images/logo.svg?raw'
-import VerticalNavLayout from '@layouts/components/VerticalNavLayout.vue'
 import Footer from '@/layouts/components/Footer.vue'
 import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
 import UserProfile from '@/layouts/components/UserProfile.vue'
+import logo from '@images/logo.svg?raw'
+import VerticalNavLayout from '@layouts/components/VerticalNavLayout.vue'
+import AdminNavItems from './navigation-items/AdminNavItems.vue'
+import OperatorNavItems from './navigation-items/OperatorNavItems.vue'
+
+const isAdmin = ref(false)
+const dataModule = JSON.parse(localStorage.getItem('dataModule'))
+
+dataModule[0]?.admin ? isAdmin.value = true : isAdmin.value = false
+
 </script>
 
 <template>
@@ -82,7 +89,8 @@ import UserProfile from '@/layouts/components/UserProfile.vue'
     </template>
 
     <template #vertical-nav-content>
-      <NavItems />
+      <AdminNavItems v-if="isAdmin"/>
+      <OperatorNavItems v-else />
     </template>
 
     <!-- 👉 Pages -->
