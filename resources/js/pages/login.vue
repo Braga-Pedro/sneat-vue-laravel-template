@@ -1,16 +1,68 @@
 <script setup>
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
+import { emailValidator, requiredValidator } from '@/@core/utils/validators'
+import { $api } from '@/utils/api'
 import logo from '@images/logo.svg?raw'
 import authV1BottomShape from '@images/svg/auth-v1-bottom-shape.svg?url'
 import authV1TopShape from '@images/svg/auth-v1-top-shape.svg?url'
 
-const form = ref({
+const errors = ref('')
+const route = useRoute()
+const router = useRouter()
+const formRefValidation = ref()
+const credentials = ref({
   email: '',
   password: '',
   remember: false,
 })
 
 const isPasswordVisible = ref(false)
+
+const login = async () => {
+  try {
+    const response = await $api('/auth/login', {
+      method: 'POST',
+      body: {
+        email: credentials.value.email,
+        password: credentials.value.password,
+      },
+      onResponseError({ response }) {
+        if (response.status === 401) {
+          errors.value = "Credenciais incorretas. Por favor, tente novamente.";
+        } else if (response.status === 500) {
+          errors.value = "Error interno do servidor. Tente novamente mais tarde.";
+        } else {
+          errors.value = "Ocorreu um error desconhecido.";
+        }
+        console.error(errors.value)
+      },
+    })
+
+    localStorage.setItem('accessToken', response.accessToken)
+    localStorage.setItem('dataUser', JSON.stringify(response.dataUser))
+    localStorage.setItem('dataModule', JSON.stringify(response.dataModule))
+    localStorage.setItem('selectedModule', response.selectedModule)
+
+    await nextTick(() => {
+      if (response?.selectedModule) {
+        router.replace(route.query.to ? String(route.query.to) : '/')
+      } else if (response?.dataUser) {
+        router.push('/access-control')
+      }
+      else {
+        router.push('/login')
+      }
+    })
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+const onSubmit = () => {
+  formRefValidation.value?.validate().then(({ valid: isValid }) => {
+    if (isValid)
+      login()
+  })
+}
 </script>
 
 <template>
@@ -52,33 +104,35 @@ const isPasswordVisible = ref(false)
 
         <VCardText>
           <h4 class="text-h4 mb-1">
-            Welcome to Sneat! 👋🏻
+            Bem vindo ao Sneat! 👋🏻
           </h4>
           <p class="mb-0">
-            Please sign-in to your account and start the adventure
+            Por favor, faça login para continuar
           </p>
         </VCardText>
 
         <VCardText>
-          <VForm @submit.prevent="$router.push('/')">
+          <VForm ref="formRefValidation" @submit.prevent="onSubmit">
             <VRow>
               <!-- email -->
               <VCol cols="12">
                 <VTextField
-                  v-model="form.email"
+                  v-model="credentials.email"
                   autofocus
-                  label="Email or Username"
+                  label="Email"
                   type="email"
                   placeholder="johndoe@email.com"
+                  :rules="[emailValidator]"
                 />
               </VCol>
 
               <!-- password -->
               <VCol cols="12">
                 <VTextField
-                  v-model="form.password"
-                  label="Password"
+                  v-model="credentials.password"
+                  label="Senha"
                   placeholder="············"
+                  :rules="[requiredValidator]"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   autocomplete="password"
                   :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
@@ -88,29 +142,26 @@ const isPasswordVisible = ref(false)
                 <!-- remember me checkbox -->
                 <div class="d-flex align-center justify-space-between flex-wrap my-6">
                   <VCheckbox
-                    v-model="form.remember"
-                    label="Remember me"
+                    v-model="credentials.remember"
+                    label="Lembrar-me"
                   />
 
-                  <a
+                  <!-- <a
                     class="text-primary"
                     href="javascript:void(0)"
                   >
                     Forgot Password?
-                  </a>
+                  </a> -->
                 </div>
 
                 <!-- login button -->
-                <VBtn
-                  block
-                  type="submit"
-                >
-                  Login
+                <VBtn block type="submit">
+                  Entrar
                 </VBtn>
               </VCol>
 
               <!-- create account -->
-              <VCol
+              <!-- <VCol
                 cols="12"
                 class="text-body-1 text-center"
               >
@@ -132,15 +183,15 @@ const isPasswordVisible = ref(false)
                 <VDivider />
                 <span class="mx-4 text-high-emphasis">or</span>
                 <VDivider />
-              </VCol>
+              </VCol> -->
 
               <!-- auth providers -->
-              <VCol
+              <!-- <VCol
                 cols="12"
                 class="text-center"
               >
                 <AuthProvider />
-              </VCol>
+              </VCol> -->
             </VRow>
           </VForm>
         </VCardText>
