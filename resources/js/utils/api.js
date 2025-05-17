@@ -1,4 +1,5 @@
 import { ofetch } from 'ofetch'
+import { clearSessionAndRedirect } from './logout.js'
 
 export const $api = ofetch.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
@@ -22,19 +23,4 @@ export const $api = ofetch.create({
   },
 })
 
-function clearSessionAndRedirect() {
-  // Remove tudo relacionado à sessão
-  const keysToRemove = [
-    // 'userData',
-    'accessToken',
-    // 'userDataModule',
-    // 'selectedModule',
-  ]
 
-  keysToRemove.forEach(key => {
-    localStorage.removeItem(key)
-  })
-
-  // Redireciona para login
-  window.location.href = '/login'
-}
