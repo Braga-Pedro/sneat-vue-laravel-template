@@ -1,5 +1,5 @@
 export const routes = [
-  { path: '/', redirect: '/dashboard' },
+  { path: '/', redirect: '/login' },
   {
     path: '/',
     component: () => import('@/layouts/default.vue'),
@@ -31,6 +31,10 @@ export const routes = [
       {
         path: 'form-layouts',
         component: () => import('@/pages/form-layouts.vue'),
+      },
+      {
+        path: 'admin/users/list',
+        component: () => import('@/pages/admin/users/list/index.vue'),
       },
     ],
   },
