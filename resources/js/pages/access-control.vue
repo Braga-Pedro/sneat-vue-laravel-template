@@ -6,7 +6,6 @@ import moduleOperator from '@images/access-control/operator.png';
 const modules = []
 
 const dataModule = JSON.parse(localStorage.getItem('dataModule'))
-console.log(dataModule)
 if (dataModule[0]?.admin) {
   modules.push({ 'logo': moduleAdmin, 'module': 'admin', 'name': 'ADMINISTRATIVO' })
 }
@@ -29,14 +28,17 @@ const selectModule = async (module) => {
 
     localStorage.setItem('selectedModule', module)
 
-    // Redirect to `to` query if exist or redirect to index route
-    document.location.href = "/"
+    if (module === 'admin') {
+      document.location.href = "/dashboard"
+    }
+    if (module === 'operator') {
+      document.location.href = "/account-settings"
+    }
   } catch (error) {
     console.error(error)
   }
 }
 
-console.log(modules)
 </script>
 
 <template>
