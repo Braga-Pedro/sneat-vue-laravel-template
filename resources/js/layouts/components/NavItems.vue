@@ -1,7 +1,7 @@
 <script setup>
-import VerticalNavSectionTitle from '@/@layouts/components/VerticalNavSectionTitle.vue'
-import VerticalNavGroup from '@layouts/components/VerticalNavGroup.vue'
-import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
+import VerticalNavSectionTitle from '@/@layouts/components/VerticalNavSectionTitle.vue';
+import VerticalNavGroup from '@layouts/components/VerticalNavGroup.vue';
+import VerticalNavLink from '@layouts/components/VerticalNavLink.vue';
 </script>
 
 <template>
@@ -20,12 +20,12 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
         to: '/dashboard',
       }"
     />
-    <VerticalNavLink
+    <!-- <VerticalNavLink
       :item="{
         title: 'CRM',
         href: 'https://demos.themeselection.com/sneat-vuetify-vuejs-laravel-admin-template/demo-1/dashboards/crm',
         target: '_blank',
-        badgeContent: 'Pro',
+        badgeContent: 'Prefixo',
         badgeClass: 'bg-light-primary text-primary',
       }"
     />
@@ -55,11 +55,11 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
         badgeContent: 'Pro',
         badgeClass: 'bg-light-primary text-primary',
       }"
-    />
+    /> -->
   </VerticalNavGroup>
 
   <!-- 👉 Front Pages -->
-  <VerticalNavGroup
+  <!-- <VerticalNavGroup
     :item="{
       title: 'Front Pages',
       icon: 'bx-file',
@@ -102,7 +102,7 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
         target: '_blank',
       }"
     />
-  </VerticalNavGroup>
+  </VerticalNavGroup> -->
 
   <!-- 👉 Apps & Pages -->
   <VerticalNavSectionTitle
@@ -110,7 +110,7 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
       heading: 'Apps & Pages',
     }"
   />
-  <VerticalNavLink
+  <!-- <VerticalNavLink
     :item="{
       title: 'Email',
       icon: 'bx-envelope',
@@ -149,7 +149,7 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
       badgeContent: 'Pro',
       badgeClass: 'bg-light-primary text-primary',
     }"
-  />
+  /> -->
 
   <VerticalNavLink
     :item="{
@@ -222,7 +222,7 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
       to: '/form-layouts',
     }"
   />
-  <VerticalNavLink
+  <!-- <VerticalNavLink
     :item="{
       title: 'Form Validation',
       icon: 'bx-check-circle',
@@ -241,7 +241,7 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
       badgeContent: 'Pro',
       badgeClass: 'bg-light-primary text-primary',
     }"
-  />
+  /> -->
   <VerticalNavLink
     :item="{
       title: 'Tables',
@@ -256,7 +256,7 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
       heading: 'Others',
     }"
   />
-  <VerticalNavLink
+  <!-- <VerticalNavLink
     :item="{
       title: 'Access Control',
       icon: 'bx-command',
@@ -265,7 +265,7 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
       badgeContent: 'Pro',
       badgeClass: 'bg-light-primary text-primary',
     }"
-  />
+  /> -->
   <VerticalNavLink
     :item="{
       title: 'Documentation',

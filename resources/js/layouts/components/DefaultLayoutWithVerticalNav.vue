@@ -8,9 +8,13 @@ import AdminNavItems from './navigation-items/AdminNavItems.vue'
 import OperatorNavItems from './navigation-items/OperatorNavItems.vue'
 
 const isAdmin = ref(false)
-const dataModule = JSON.parse(localStorage.getItem('dataModule'))
+const selectedModule = localStorage.getItem('selectedModule')
 
-dataModule[0]?.admin ? isAdmin.value = true : isAdmin.value = false
+if (selectedModule === 'admin') {
+  isAdmin.value = true
+} else if (selectedModule === 'operator') {
+  isAdmin.value = false
+}
 
 </script>
 
@@ -27,34 +31,14 @@ dataModule[0]?.admin ? isAdmin.value = true : isAdmin.value = false
           <VIcon icon="bx-menu" />
         </IconBtn>
 
-        <!-- 👉 Search -->
-        <div
-          class="d-flex align-center cursor-pointer ms-lg-n3"
-          style="user-select: none;"
-        >
-          <!-- 👉 Search Trigger button -->
-          <IconBtn>
-            <VIcon icon="bx-search" />
-          </IconBtn>
-
-          <span class="d-none d-md-flex align-center text-disabled ms-2">
-            <span class="me-2">Search</span>
-            <span class="meta-key">&#8984;K</span>
-          </span>
-        </div>
-
         <VSpacer />
 
         <IconBtn
-          href="https://github.com/themeselection/sneat-vuetify-vuejs-laravel-admin-template-free"
+          href="https://github.com/braga-pedro"
           target="_blank"
           rel="noopener noreferrer"
         >
           <VIcon icon="bxl-github" />
-        </IconBtn>
-
-        <IconBtn>
-          <VIcon icon="bx-bell" />
         </IconBtn>
 
         <NavbarThemeSwitcher class="me-1" />
