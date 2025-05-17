@@ -1,5 +1,17 @@
 <script setup>
-import avatar1 from '@images/avatars/avatar-1.png'
+import { clearSessionAndRedirect } from '@/utils/logout';
+import avatar1 from '@images/avatars/avatar-1.png';
+
+const dataUser = JSON.parse(localStorage.getItem('dataUser'))
+const selectedModule = localStorage.getItem('selectedModule')
+const moduleName = ref('');
+
+if (selectedModule === 'admin') {
+  moduleName.value = 'Administrador'
+} else if (selectedModule === 'operator') {
+  moduleName.value = 'Operador'
+}
+
 </script>
 
 <template>
@@ -48,14 +60,17 @@ import avatar1 from '@images/avatars/avatar-1.png'
             </template>
 
             <VListItemTitle class="font-weight-semibold">
-              John Doe
+              {{ dataUser?.name }}
             </VListItemTitle>
-            <VListItemSubtitle>Admin</VListItemSubtitle>
+            <VListItemSubtitle>{{ moduleName }}</VListItemSubtitle>
           </VListItem>
           <VDivider class="my-2" />
 
-          <!-- 👉 Profile -->
-          <VListItem link>
+          <!-- 👉 My Profile -->
+          <VListItem 
+            link
+            to="/account-settings"
+          >
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -64,11 +79,14 @@ import avatar1 from '@images/avatars/avatar-1.png'
               />
             </template>
 
-            <VListItemTitle>Profile</VListItemTitle>
+            <VListItemTitle>Meu Perfil</VListItemTitle>
           </VListItem>
 
-          <!-- 👉 Settings -->
-          <VListItem link>
+          <!-- 👉 Module Switch -->
+          <VListItem 
+            link
+            to="/access-control"
+          >
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -77,40 +95,17 @@ import avatar1 from '@images/avatars/avatar-1.png'
               />
             </template>
 
-            <VListItemTitle>Settings</VListItemTitle>
+            <VListItemTitle>Trocar Módulo</VListItemTitle>
           </VListItem>
-
-          <!-- 👉 Pricing -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="bx-dollar"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>Pricing</VListItemTitle>
-          </VListItem>
-
-          <!-- 👉 FAQ -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="bx-help-circle"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>FAQ</VListItemTitle>
-          </VListItem>
+          
 
           <!-- Divider -->
           <VDivider class="my-2" />
 
           <!-- 👉 Logout -->
-          <VListItem to="/login">
+          <VListItem 
+            @click="clearSessionAndRedirect()"
+           >
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -119,7 +114,7 @@ import avatar1 from '@images/avatars/avatar-1.png'
               />
             </template>
 
-            <VListItemTitle>Logout</VListItemTitle>
+            <VListItemTitle>Sair</VListItemTitle>
           </VListItem>
         </VList>
       </VMenu>
