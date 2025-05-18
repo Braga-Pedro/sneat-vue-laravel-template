@@ -3,6 +3,7 @@ import ActivateConfirm from '@/pages/admin/users/components/ActivateConfirm.vue'
 import AddNewUserDrawer from '@/pages/admin/users/components/AddNewUserDrawer.vue';
 import DeleteConfirm from '@/pages/admin/users/components/DeleteConfirm.vue';
 import EditAdminDialog from '@/pages/admin/users/components/EditAdminDialog.vue';
+import { $api } from '@/utils/api';
 
 // 👉 Store
 const searchQuery = ref('')
@@ -15,6 +16,7 @@ const users = ref([])
 const page = ref(1);
 const itemsPerPage = ref(15);
 const totalUsers = ref(0)
+const dataUsers = ref([])
 
 const updateOptions = (options) => {
     sortBy.value = options.sortBy[0]?.key
@@ -24,17 +26,23 @@ const updateOptions = (options) => {
 }
 
 // endpoint get users data
-const {
-    data: dataUsers,
-    execute: fetchUser
-} = await useApi(createUrl('/admin/users/admin', {
-    query: {
-        page,
-        per_page: itemsPerPage.value,
-        sort_by: sortBy.value,
-        order_by: orderBy.value,
-    },
-}));
+async function fetchUser() {
+  try {
+    const response = await $api('/admin/users/admin', {
+      method: 'GET',
+    //   params: {
+    //     page: page.value,
+    //     per_page: itemsPerPage.value,
+    //     sort_by: sortBy.value,
+    //     order_by: orderBy.value,
+    //   },
+    })
+
+    dataUsers.value = response.data || []
+  } catch (error) {
+    console.error('Erro ao buscar usuários:', error)
+  }
+}
 
 const searchUsers = async () => {
     const searchData = await $api('/admin/users/admin/find-by-argument', {
@@ -235,12 +243,12 @@ const resolveUserStatusVariant = stat => {
                     </div>
                 </div>
                 <!-- 👉 button find user -->
-                <VBtn prepend-icon="tabler-search" @click="searchUsers">
+                <VBtn prepend-icon="bx-search" @click="searchUsers">
                     Buscar
                 </VBtn>
                 <VSpacer />
                 <!-- 👉 Add user button -->
-                <VBtn prepend-icon="tabler-plus" @click="isAddNewUserDrawerVisible = true">
+                <VBtn prepend-icon="bx-plus" @click="isAddNewUserDrawerVisible = true">
                     Adicionar Usuário
                 </VBtn>
             </VCardText>

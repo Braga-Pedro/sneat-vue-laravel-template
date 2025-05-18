@@ -13,9 +13,6 @@ const emit = defineEmits([
   'userData',
 ])
 
-const payload = localStorage.getItem('payload')
-const iv = localStorage.getItem('iv')
-const data = decryptPayload(payload, iv)
 
 const isFormValid = ref(false)
 const refForm = ref()
@@ -24,7 +21,6 @@ const userData = ref({
   name: '',
   email: '',
   password: '',
-  company_id: data?.userDataModule[0].company_id,
   address: '',
   phone: '',
   admin: false,
