@@ -10,7 +10,7 @@ class ModuleControllMiddleware
 {
     public function handle(Request $request, Closure $next, string $module): Response
     {
-        if (!$request->user()->userModules->{$module}) {
+        if (!$request->user()->userModule->{$module}) {
             return response()->json(['error' => 'Module Unauthorized'], 401);
         }
 
