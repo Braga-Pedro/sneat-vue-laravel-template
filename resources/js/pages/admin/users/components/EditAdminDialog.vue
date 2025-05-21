@@ -18,7 +18,7 @@ const dataUser = ref({
     },
     userModule: {
         admin: props.userData.admin,
-        agent: props.userData.agent,
+        operator: props.userData.operator,
     },
 })
 
@@ -48,26 +48,26 @@ const editUser = () => {
             <VCardText>
                 <VRow>
                     <VCol cols="12">
-                        <AppTextField v-model="dataUser.user.name" label="Nome" placeholder="John" />
+                        <VTextField v-model="dataUser.user.name" label="Nome" placeholder="John" />
                     </VCol>
 
                     <VCol cols="12">
-                        <AppTextField v-model="dataUser.user.email" label="E-mail" placeholder="johndoe@email.com" />
+                        <VTextField v-model="dataUser.user.email" label="E-mail" placeholder="johndoe@email.com" />
                     </VCol>
 
                     <VCol cols="12" sm="6">
-                        <AppTextField v-model="dataUser.user.address" label="Enderenço"
+                        <VTextField v-model="dataUser.user.address" label="Enderenço"
                             placeholder="R. X, Bairro Y, Cidade A, País K" />
                     </VCol>
 
                     <VCol cols="12" sm="6">
-                        <AppTextField v-model="dataUser.user.phone" label="Telefone" placeholder="10120164864" />
+                        <VTextField v-model="dataUser.user.phone" label="Telefone" placeholder="10120164864" />
                     </VCol>
 
                     <VCol cols="12" class="demo-space-x justify-center">
                         <VCheckbox v-model="dataUser.userModule.admin" :label="'Administrador'" />
 
-                        <VCheckbox v-model="dataUser.userModule.agent" :label="'Operador'" />
+                        <VCheckbox v-model="dataUser.userModule.operator" :label="'Operador'" />
                     </VCol>
 
                 </VRow>

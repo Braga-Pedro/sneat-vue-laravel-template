@@ -24,7 +24,7 @@ const userData = ref({
   address: '',
   phone: '',
   admin: false,
-  agent: false,
+  operator: false,
 })
 
 // 👉 drawer close
@@ -65,34 +65,34 @@ const handleDrawerModelValueUpdate = val => {
             <VRow>
               <!-- 👉 Username -->
               <VCol cols="12">
-                <AppTextField v-model="userData.name" label="Nome" placeholder="Johndoe" />
+                <VTextField v-model="userData.name" label="Nome" placeholder="Johndoe" />
               </VCol>
 
               <!-- 👉 Email -->
               <VCol cols="12">
-                <AppTextField v-model="userData.email" label="E-mail" placeholder="johndoe@email.com" />
+                <VTextField v-model="userData.email" label="E-mail" placeholder="johndoe@email.com" />
               </VCol>
 
               <!-- 👉 password -->
               <VCol cols="12">
-                <AppTextField v-model="userData.password" type="password" label="Senha" />
+                <VTextField v-model="userData.password" type="password" label="Senha" />
               </VCol>
 
               <div class="demo-space-x ml-3">
                 <VCheckbox v-model="userData.admin" :label="'Administrador'" />
 
-                <VCheckbox v-model="userData.agent" :label="'Operador'" />
+                <VCheckbox v-model="userData.operator" :label="'Operador'" />
               </div>
 
               <!-- 👉 Address -->
               <VCol cols="12" md="6">
-                <AppTextField v-model="userData.address" label="Endereço"
+                <VTextField v-model="userData.address" label="Endereço"
                   placeholder="número, rua, bairro, cidade, país" />
               </VCol>
 
               <!-- 👉 Phone -->
               <VCol cols="12" md="6">
-                <AppTextField v-model="userData.phone" label="Telefone" placeholder="+1-541-754-3010" />
+                <VTextField v-model="userData.phone" label="Telefone" placeholder="+1-541-754-3010" />
               </VCol>
 
               <!-- 👉 Submit and Cancel -->

@@ -38,7 +38,8 @@ async function fetchUser() {
     //   },
     })
 
-    dataUsers.value = response.data || []
+    dataUsers.value = response || []
+    console.log('dataUsers', dataUsers.value)
   } catch (error) {
     console.error('Erro ao buscar usuários:', error)
   }
@@ -106,7 +107,7 @@ const headers = [
     },
     {
         title: 'Módulos',
-        key: 'modules',
+        key: 'user_module',
         sortable: false,
     },
     {
@@ -180,32 +181,32 @@ const resolveUserRoleVariant = role => {
     if (roleLowerCase === 'subscriber')
         return {
             color: 'success',
-            icon: 'tabler-user',
+            icon: 'bx-user',
         }
     if (roleLowerCase === 'author')
         return {
             color: 'error',
-            icon: 'tabler-device-desktop',
+            icon: 'bx-device-desktop',
         }
     if (roleLowerCase === 'maintainer')
         return {
             color: 'info',
-            icon: 'tabler-chart-pie',
+            icon: 'bx-chart-pie',
         }
     if (roleLowerCase === 'editor')
         return {
             color: 'warning',
-            icon: 'tabler-edit',
+            icon: 'bx-edit',
         }
     if (roleLowerCase === 'admin')
         return {
             color: 'primary',
-            icon: 'tabler-crown',
+            icon: 'bx-crown',
         }
 
     return {
         color: 'primary',
-        icon: 'tabler-user',
+        icon: 'bx-user',
     }
 }
 
@@ -225,9 +226,13 @@ const resolveUserStatusVariant = stat => {
     <section>
         <VCard class="mb-6">
             <VCardItem class="pb-4">
-                <div class="text-h4">
+                <!-- <div class="text-h4">
                     <VIcon :size="28" :icon="resolveUserRoleVariant('subscriber').icon"
                         :color="resolveUserRoleVariant('subscriber').color" />
+                    Usuários
+                </div> -->
+                <div class="text-h4">
+                    <VIcon :size="28" :icon="'bx-user'" :color="'primary'" />
                     Usuários
                 </div>
             </VCardItem>
@@ -239,7 +244,7 @@ const resolveUserStatusVariant = stat => {
                 <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
                     <!-- 👉 Search  -->
                     <div style="inline-size: 35.625rem;">
-                        <AppTextField v-model="searchQuery" placeholder="Buscar Email do Usuário" />
+                        <VTextField v-model="searchQuery" placeholder="Buscar Email do Usuário" />
                     </div>
                 </div>
                 <!-- 👉 button find user -->
@@ -280,15 +285,15 @@ const resolveUserStatusVariant = stat => {
                 </template>
 
                 <!-- 👉 Role -->
-                <template #item.modules="{ item }">
+                <template #item.user_module="{ item }">
                     <div class="d-flex align-center gap-x-2">
                         <VIcon v-if="item.admin" :size="22"
                             :icon="resolveUserRoleVariant(item.admin ? 'admin' : 'void').icon"
                             :color="resolveUserRoleVariant(item.admin ? 'admin' : 'void').color" />
 
                         <VIcon v-if="item.agent" :size="22"
-                            :icon="resolveUserRoleVariant(item.agent ? 'maintainer' : 'void').icon"
-                            :color="resolveUserRoleVariant(item.agent ? 'maintainer' : 'void').color" />
+                            :icon="resolveUserRoleVariant(item.operator ? 'maintainer' : 'void').icon"
+                            :color="resolveUserRoleVariant(item.operator ? 'maintainer' : 'void').color" />
 
                     </div>
                 </template>
