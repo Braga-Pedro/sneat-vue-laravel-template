@@ -13,19 +13,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        $admins = UserModule::select([
-            'user_modules.*',
-            'users.name',
-            'users.email',
-            'users.phone',
-            'users.address',
-            'users.deleted_at',
-            'users.created_at',
-            'users.updated_at'
-        ])
-        ->join('users', 'users.id', '=', 'user_modules.user_id')
+        $admins = User::with('userModule')
         ->withTrashed()
-        ->orderBy('users.updated_at', 'desc');
+        ->orderBy('updated_at', 'desc');
 
         return $this->handleCollectionOrPaginationReturn($admins);
     }
